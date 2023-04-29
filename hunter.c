@@ -128,7 +128,7 @@ void communicateHunter(HunterType* hunter){
         int j = 0;
         while(j < hunter->currentRoom->hunters[x]->eviCount){
           if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
-            break;
+            continue;
           }
           else{
             j++;
@@ -151,7 +151,7 @@ void communicateHunter(HunterType* hunter){
         int j = 0;
         while(j < hunter->currentRoom->hunters[x]->eviCount){
           if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
-            break;
+            continue;
           }
           else{
             j++;
@@ -173,7 +173,7 @@ void communicateHunter(HunterType* hunter){
         int j = 0;
         while(j < hunter->currentRoom->hunters[x]->eviCount){
           if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
-            break;
+            continue;
           }
           else{
             j++;
@@ -195,7 +195,7 @@ void communicateHunter(HunterType* hunter){
         int j = 0;
         while(j < hunter->currentRoom->hunters[x]->eviCount){
           if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
-            break;
+            continue;
           }
           else{
             j++;
