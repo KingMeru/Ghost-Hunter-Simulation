@@ -66,6 +66,7 @@ void generateEMF(GhostType* ghost){
   else{
     printf("The ghost generated standard EMF\n");
   }
+  return;
 }
 /*
   Function: generateTEMP
@@ -87,6 +88,7 @@ void generateTEMP(GhostType* ghost){
   else{
     printf("The ghost generated standard TEMPERATURE\n");
   }
+  return;
 }
 /*
   Function: generateFING
@@ -108,6 +110,7 @@ void generateFING(GhostType* ghost){
   else{
     printf("The ghost generated standard FINGERPRINTS\n");
   }
+  return;
 }
 /*
   Function: generateSOUND
@@ -129,6 +132,7 @@ void generateSOUND(GhostType* ghost){
   else{
     printf("The ghost generated standard SOUND\n");
   }
+  return;
 }
 /*
   Function: appendEvidence
@@ -147,6 +151,7 @@ void appendEvidence(RoomType* room, EvidenceType* evi) {
     room->roomEvidence[room->eviCount] = evi;
     room->eviCount++;
   }
+  return;
 }
 /*
   Function: growEvidence
@@ -162,6 +167,7 @@ void growEvidence(RoomType* room) {
   }
   free(room->roomEvidence);
   room->roomEvidence = newEvi;
+  return;
 }
 /*
   Function: deleteEvidence
@@ -180,6 +186,7 @@ void deleteEvidence(RoomType* room, EvidenceType* evi){
       room->eviCount -= 1;
     }
   }
+  return;
 }
 /*
   Function: collectEvidence
@@ -229,6 +236,7 @@ void generateHunterEvidence(HunterType* hunter){
     generateHuntSOUND(hunter);
     printf("%s, generated SOUND evidence\n", hunter->name);
   }
+  return;
 }
 /*
   Function: generateHuntEMF
@@ -241,6 +249,7 @@ void generateHuntEMF(HunterType* hunter){
   newEvi->evidenceType = EMF;
   newEvi->value = randFloat(0.0, 4.9);
   addHunterEvidence(hunter, newEvi);
+  return;
 }
 /*
   Function: generateHuntTEMP
@@ -253,6 +262,7 @@ void generateHuntTEMP(HunterType* hunter){
   newEvi->evidenceType = TEMPERATURE;
   newEvi->value = randFloat(0.0, 27.0);
   addHunterEvidence(hunter, newEvi);
+  return;
 }
 /*
   Function: generateHuntFING
@@ -265,6 +275,7 @@ void generateHuntFING(HunterType* hunter){
   newEvi->evidenceType = FINGERPRINTS;
   newEvi->value = 0;
   addHunterEvidence(hunter, newEvi);
+  return;
 }
 /*
   Function: generateHuntSOUND
@@ -277,6 +288,7 @@ void generateHuntSOUND(HunterType* hunter){
   newEvi->evidenceType = SOUND;
   newEvi->value = randFloat(40.0, 70.0);
   addHunterEvidence(hunter, newEvi);
+  return;
 }
 /*
   Function: addHunterEvidence
@@ -294,6 +306,7 @@ void addHunterEvidence(HunterType* hunter, EvidenceType* newEvi){
     hunter->collectedEvidence[hunter->eviCount] = newEvi;
     hunter->eviCount++;
   }
+  return;
 }
 /*
   Function: duplicateHunterEvidence
@@ -319,6 +332,7 @@ void duplicateHunterEvidence(HunterType* hunter, EvidenceType* newEvi){
     hunter->collectedEvidence[hunter->eviCount] = newEvi;
     hunter->eviCount++;
   }
+  return;
 }
 /*
   Function: growHuntEvidence
@@ -334,6 +348,7 @@ void growHuntEvidence(HunterType* hunter){
   }
   free(hunter->collectedEvidence);
   hunter->collectedEvidence = newEvi;
+  return;
 }
 /*
   Function: hunterEvidenceType
@@ -363,4 +378,5 @@ void hunterEvidenceType(EvidenceType* evi, HunterType* hunter){
     hunter->boredomTime -= 1;
     printf("%s collected standard ghost evidence\n", hunter->name);
   }
+  return;
 }

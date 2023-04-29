@@ -26,6 +26,7 @@ void initGhost(GhostType* ghost, BuildingType* building){
   ghost->currentRoom = NULL;
 
   initGhostLocation(ghost, building);
+  return;
 }
 /*
   Function: ghostRoom
@@ -90,7 +91,7 @@ void initGhostLocation(GhostType* ghost, BuildingType* building){
 
   sleep(2);
   printf("The ghost is in %s\n", ghost->currentRoom->name);
-
+  return;
 
 }
 /*
@@ -148,4 +149,5 @@ void printGhost(GhostType* ghost){
   else{
     printf("GHOST TYPE: %15s|", "BANSHEE");
   }
+  return;
 }

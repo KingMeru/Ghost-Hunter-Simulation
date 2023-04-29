@@ -12,15 +12,19 @@ void initHunter(char* name, HunterType* hunter, BuildingType* building){
   hunter->eviCount = 0;
   int x = randInt(1, 4);
   if(x == 1){
-    hunter->device = POLTERGEIST;
+    hunter->device = EMF;
+    printf("%s has an EMF Device\n", hunter->name);
   }
   else if(x==2){
-    hunter->device = BANSHEE;
+    hunter->device = TEMPERATURE;
+    printf("%s has a Temperature Device\n", hunter->name);
   }
   else if(x==3){
-    hunter->device = BULLIES;
+    hunter->device = SOUND;
+    printf("%s has a Sound Device\n", hunter->name);
   }else{
-    hunter->device = PHANTOM;
+    hunter->device = FINGERPRINTS;
+    printf("%s has a Fingerprint Device\n", hunter->name);
   }
 
   sleep(1);
@@ -36,6 +40,7 @@ void initHunter(char* name, HunterType* hunter, BuildingType* building){
   hunter->boredomTime = BOREDOM_MAX;
 
   appendHunter(building->rooms->head->room, hunter);
+  return;
 }
 /*
   Function: moveHunter
@@ -83,8 +88,9 @@ void moveHunter(HunterType* hunter){
    return:   void
 */
 void appendHunter(RoomType* room, HunterType* hunt) {
-    room->hunters[room->hunterCount] = hunt;
-    room->hunterCount++;
+  room->hunters[room->hunterCount] = hunt;
+  room->hunterCount++;
+  return;
 }
 /*
   Function: deleteHunter
@@ -102,6 +108,7 @@ void deleteHunter(HunterType* hunt, RoomType* room){
       room->hunterCount -= 1;
     }
   }
+  return;
 }
 /*
   Function: communicateHunter
@@ -124,92 +131,55 @@ void communicateHunter(HunterType* hunter){
   int i = 0;
   for(i=0; i < hunter->eviCount; i++){
     if(hunter->collectedEvidence[i]->evidenceType == EMF && (hunter->collectedEvidence[i]->value > 4.9)){
-      if(hunter->currentRoom->hunters[x]->eviCount > 0){
-        int j = 0;
-        while(j < hunter->currentRoom->hunters[x]->eviCount){
-          if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
-            continue;
-          }
-          else{
-            j++;
-          }
-        }
-        if(j == hunter->currentRoom->hunters[x]->eviCount){
-          duplicateHunterEvidence(hunter->currentRoom->hunters[x], hunter->collectedEvidence[i]);
-          printf("%s shared ghostly EMF evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
-        }
-
+      int j = 0;
+      int flag = 0;
+      for(j =0; j < hunter->currentRoom->hunters[x]->eviCount; j++){
+        if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
+          flag = 1;
+        }  
       }
-      else{
+      if(j == hunter->currentRoom->hunters[x]->eviCount && flag == 0){
         duplicateHunterEvidence(hunter->currentRoom->hunters[x], hunter->collectedEvidence[i]);
         printf("%s shared ghostly EMF evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
       }
-
     }
     else if(hunter->collectedEvidence[i]->evidenceType == TEMPERATURE && (hunter->collectedEvidence[i]->value < 0)){
-      if(hunter->currentRoom->hunters[x]->eviCount > 0){
-        int j = 0;
-        while(j < hunter->currentRoom->hunters[x]->eviCount){
-          if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
-            continue;
-          }
-          else{
-            j++;
-          }
-        }
-        if(j == hunter->currentRoom->hunters[x]->eviCount){
-          duplicateHunterEvidence(hunter->currentRoom->hunters[x], hunter->collectedEvidence[i]);
-          printf("%s shared ghostly TEMPERATURE evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
-        }
-
+      int j = 0;
+      int flag = 0;
+      for(j =0; j < hunter->currentRoom->hunters[x]->eviCount; j++){
+        if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
+          flag = 1;
+        }  
       }
-      else{
+      if(j == hunter->currentRoom->hunters[x]->eviCount && flag == 0){
         duplicateHunterEvidence(hunter->currentRoom->hunters[x], hunter->collectedEvidence[i]);
-        printf("%s shared ghostly TEMPERATURE evidence with %s", hunter->name, hunter->currentRoom->hunters[x]->name);
+        printf("%s shared ghostly EMF evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
       }
     }
     else if(hunter->collectedEvidence[i]->evidenceType == FINGERPRINTS && (hunter->collectedEvidence[i]->value > 0)){
-      if(hunter->currentRoom->hunters[x]->eviCount > 0){
-        int j = 0;
-        while(j < hunter->currentRoom->hunters[x]->eviCount){
-          if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
-            continue;
-          }
-          else{
-            j++;
-          }
-        }
-        if(j == hunter->currentRoom->hunters[x]->eviCount){
-          duplicateHunterEvidence(hunter->currentRoom->hunters[x], hunter->collectedEvidence[i]);
-          printf("%s shared ghostly FINGERPRINTS evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
-        }
-
+      int j = 0;
+      int flag = 0;
+      for(j =0; j < hunter->currentRoom->hunters[x]->eviCount; j++){
+        if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
+          flag = 1;
+        }  
       }
-      else{
+      if(j == hunter->currentRoom->hunters[x]->eviCount && flag == 0){
         duplicateHunterEvidence(hunter->currentRoom->hunters[x], hunter->collectedEvidence[i]);
-        printf("%s shared ghostly FINGERPRINTS evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
+        printf("%s shared ghostly EMF evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
       }
     }
     else if(hunter->collectedEvidence[i]->evidenceType == SOUND && (hunter->collectedEvidence[i]->value > 70)){
-      if(hunter->currentRoom->hunters[x]->eviCount > 0){
-        int j = 0;
-        while(j < hunter->currentRoom->hunters[x]->eviCount){
-          if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
-            continue;
-          }
-          else{
-            j++;
-          }
-        }
-        if(j == hunter->currentRoom->hunters[x]->eviCount){
-          duplicateHunterEvidence(hunter->currentRoom->hunters[x], hunter->collectedEvidence[i]);
-          printf("%s shared ghostly SOUND evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
-        }
-
+      int j = 0;
+      int flag = 0;
+      for(j =0; j < hunter->currentRoom->hunters[x]->eviCount; j++){
+        if(hunter->collectedEvidence[i] == hunter->currentRoom->hunters[x]->collectedEvidence[j]){
+          flag = 1;
+        }  
       }
-      else{
+      if(j == hunter->currentRoom->hunters[x]->eviCount && flag == 0){
         duplicateHunterEvidence(hunter->currentRoom->hunters[x], hunter->collectedEvidence[i]);
-        printf("%s shared ghostly SOUND evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
+        printf("%s shared ghostly EMF evidence with %s\n", hunter->name, hunter->currentRoom->hunters[x]->name);
       }
     }
   }
@@ -225,6 +195,7 @@ void communicateHunter(HunterType* hunter){
 void addBuildingHunter(HunterType* hunt, BuildingType* building){
   building->hunters[building->hunterCount] = hunt;
   building->hunterCount++;
+  return;
 }
 /*
   Function: cleanupHunterEvidence
@@ -240,6 +211,7 @@ void cleanupHunterEvidence(BuildingType* b){
     }
     free(b->hunters[i]->collectedEvidence);
   }
+  return;
 }
 /*
   Function: hunterIsBored
@@ -271,9 +243,9 @@ void* hunterIsBored(void* hunt){
     else if(x==3){
 
       if(hunter->currentRoom->hunterCount > 1){
-        sem_wait(&(hunter->currentRoom->mutex));
+        //sem_wait(&(hunter->currentRoom->mutex));
         communicateHunter(hunter);
-        sem_post(&(hunter->currentRoom->mutex));
+        //sem_post(&(hunter->currentRoom->mutex));
         hunter->boredomTime -= 1;
       }
     }
@@ -390,11 +362,10 @@ void allEvidenceWin(HunterType* hunter){
   }
   else if(fingerCount > 0 && tempCount > 0 && soundCount > 0){
     printf("The spec ghost is PHANTOM\n");
-  ;
   }
-  else{
-    return;
-  }
+  
+  return;
+  
 }
 /*
   Function: printScaredHunters
@@ -425,4 +396,5 @@ void printScaredHunters(BuildingType* b){
   else if(bored != 4){
     printf("The Hunters won\n");
   }
+  return;
 }
